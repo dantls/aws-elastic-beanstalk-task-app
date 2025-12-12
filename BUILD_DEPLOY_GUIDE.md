@@ -16,6 +16,60 @@ tasks-application/
 └── BUILD_DEPLOY_GUIDE.md # Este arquivo
 ```
 
+## ⚠️ Correções Necessárias
+
+### 🔧 Problemas Encontrados e Soluções
+
+**1. Script build-and-push-public.sh - Paths incorretos**
+```bash
+# PROBLEMA: Script mudava para diretório errado
+cd "$(dirname "$0")/.."  # ❌ Causava erro "path not found"
+
+# SOLUÇÃO: Comentar linha e executar da pasta aws/
+# cd "$(dirname "$0")/.."  # ✅ Comentado
+```
+
+**2. Caminhos relativos no script**
+```bash
+# PROBLEMA: Referências antigas para aws-infrastructure/
+cat > aws-infrastructure/Dockerrun.aws.json  # ❌
+
+# SOLUÇÃO: Usar paths relativos corretos
+cat > Dockerrun.aws.json  # ✅
+zip -r ${APP_NAME}-${TAG}.zip Dockerrun.aws.json .ebextensions/  # ✅
+```
+
+**3. Deploy script - Credenciais AWS**
+```bash
+# PROBLEMA: Token inválido sem carregar .env
+./deploy.sh v-20251212-112632  # ❌
+
+# SOLUÇÃO: Sempre carregar environment primeiro
+source .env && ./deploy.sh v-20251212-112632  # ✅
+```
+
+### 📋 Processo Correto Após Reorganização
+
+**1. Build e Push:**
+```bash
+cd aws
+source .env
+./build-and-push-public.sh
+```
+
+**2. Deploy:**
+```bash
+# Já na pasta aws/
+source .env && ./deploy.sh v-YYYYMMDD-HHMMSS
+```
+
+### ✅ Validações Importantes
+
+- ✅ Executar sempre da pasta `aws/`
+- ✅ Sempre fazer `source .env` antes dos comandos
+- ✅ Verificar se `../app/` existe antes do build
+- ✅ Confirmar que frontend tem build/ atualizado
+
 ## ⚙️ Configurações Atuais
 
 ### AWS Profile: `<your-profile>`

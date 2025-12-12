@@ -15,8 +15,8 @@ NC='\033[0m'
 
 echo -e "${BLUE}🚀 Starting build and push process...${NC}"
 
-# Ir para o diretório raiz do projeto
-cd "$(dirname "$0")/.."
+# Ir para o diretório raiz do projeto (comentado - agora executamos da pasta aws)
+# cd "$(dirname "$0")/.."
 
 # 1. Verificar se Docker está rodando
 if ! docker info > /dev/null 2>&1; then
@@ -92,7 +92,7 @@ echo -e "${GREEN}✅ Build artifacts cleaned!${NC}"
 
 # 11. Criar Dockerrun.aws.json para Beanstalk
 echo -e "${YELLOW}📝 Creating Dockerrun.aws.json...${NC}"
-cat > aws-infrastructure/Dockerrun.aws.json << EOF
+cat > Dockerrun.aws.json << EOF
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
@@ -109,13 +109,11 @@ EOF
 
 # 12. Criar ZIP para deploy
 echo -e "${YELLOW}📦 Creating deployment package...${NC}"
-cd aws-infrastructure
 zip -r ${APP_NAME}-${TAG}.zip Dockerrun.aws.json .ebextensions/
-cd ..
 
 # 13. Upload para S3 e criar versão no Beanstalk
 echo -e "${YELLOW}☁️ Uploading to S3 and creating Beanstalk version...${NC}"
-aws s3 cp aws-infrastructure/${APP_NAME}-${TAG}.zip s3://${BUCKET_NAME}/${APP_NAME}-${TAG}.zip --profile $AWS_PROFILE
+aws s3 cp ${APP_NAME}-${TAG}.zip s3://${BUCKET_NAME}/${APP_NAME}-${TAG}.zip --profile $AWS_PROFILE
 
 aws elasticbeanstalk create-application-version \
   --application-name $APP_NAME \
@@ -129,8 +127,8 @@ echo -e "${GREEN}✅ Build and push completed!${NC}"
 echo -e "${BLUE}📋 Summary:${NC}"
 echo -e "   Image URI: $IMAGE_URI"
 echo -e "   Tag: $TAG"
-echo -e "   Deployment package: aws-infrastructure/${APP_NAME}-${TAG}.zip"
+echo -e "   Deployment package: ${APP_NAME}-${TAG}.zip"
 echo -e "   Beanstalk version: v-$TAG"
 echo ""
 echo -e "${YELLOW}🚀 To deploy, run:${NC}"
-echo -e "   cd aws-infrastructure && ./deploy.sh v-$TAG"
+echo -e "   cd aws && ./deploy.sh v-$TAG"
