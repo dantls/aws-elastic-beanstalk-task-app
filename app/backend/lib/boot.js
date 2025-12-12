@@ -7,7 +7,7 @@ var fs = require("fs");
 var path = require("path");
 
 module.exports = function (parent, options) {
-  var dir = path.join(__dirname, "..", "app", "controllers");
+  var dir = path.join(__dirname, "..", "api", "controllers");
   var verbose = options.verbose;
   fs.readdirSync(dir).forEach(function (name) {
     var file = path.join(dir, name);
@@ -25,7 +25,7 @@ module.exports = function (parent, options) {
     if (obj.engine) app.set("view engine", obj.engine);
     app.set(
       "views",
-      path.join(__dirname, "..", "app", "controllers", name, "views")
+      path.join(__dirname, "..", "api", "controllers", name, "views")
     );
 
     // generate routes based
