@@ -11,7 +11,7 @@ const App = () => {
   const [showAddTask, setShowAddTask] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("pt");
 
   const translations = {
     en: {
@@ -24,10 +24,16 @@ const App = () => {
       about: "About",
       important: "Important?",
       task: "Task",
-      addDay: "Add Day & Time"
+      addDay: "Add Day & Time",
+      addTaskPlaceholder: "Add Task",
+      addDayPlaceholder: "Add Day & Time",
+      pleaseAddTask: "Please add a task",
+      version: "Version 1.0.0",
+      builtWith: "Task tracker built with React",
+      goBack: "Go Back"
     },
     pt: {
-      taskTracker: "Task Application",
+      taskTracker: "Aplicação de Tarefas",
       addTask: "Adicionar Tarefa",
       closeAddTask: "Fechar",
       addTaskForm: "Adicionar Tarefa",
@@ -36,7 +42,13 @@ const App = () => {
       about: "Sobre",
       important: "Importante?",
       task: "Tarefa",
-      addDay: "Adicionar Dia e Hora"
+      addDay: "Adicionar Dia e Hora",
+      addTaskPlaceholder: "Adicionar Tarefa",
+      addDayPlaceholder: "Adicionar Dia e Hora",
+      pleaseAddTask: "Por favor adicione uma tarefa",
+      version: "Versão 1.0.0",
+      builtWith: "Rastreador de tarefas construído com React",
+      goBack: "Voltar"
     }
   };
 
@@ -59,8 +71,14 @@ const App = () => {
       const tasksFromServer = await fetchTasks();
       setTasks(tasksFromServer);
     };
+
     getTasks();
   }, []);
+
+  // Apply theme
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
 
   // Add Task
   const addTask = async (task) => {
@@ -69,14 +87,11 @@ const App = () => {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({
-        titulo: task.text,
-        dia: task.day,
-        importante: task.reminder
-      }),
+      body: JSON.stringify(task),
     });
 
     const data = await res.json();
+
     setTasks([...tasks, data]);
   };
 
@@ -85,6 +100,7 @@ const App = () => {
     const res = await fetch(`/api/tarefas/${id}`, {
       method: "DELETE",
     });
+    //We should control the response status to decide if we will change the state or not.
     res.status === 200
       ? setTasks(tasks.filter((task) => task.uuid !== id))
       : alert("Error Deleting This Task");
@@ -93,7 +109,7 @@ const App = () => {
   // Toggle Reminder
   const toggleReminder = async (id) => {
     const taskToToggle = await fetchTask(id);
-    const updTask = { ...taskToToggle, importante: !taskToToggle.importante };
+    const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
 
     const res = await fetch(`/api/tarefas/update_priority/${id}`, {
       method: "PUT",
@@ -104,17 +120,13 @@ const App = () => {
     });
 
     const data = await res.json();
+
     setTasks(
       tasks.map((task) =>
-        task.uuid === id ? { ...task, importante: data.importante } : task
+        task.uuid === id ? { ...task, reminder: data.reminder } : task
       )
     );
   };
-
-  // Apply theme
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
-  }, [darkMode]);
 
   return (
     <Router>
@@ -156,7 +168,11 @@ const App = () => {
             render={(props) => (
               <>
                 {showAddTask && (
-                  <AddTask onAdd={addTask} translations={translations} language={language} />
+                  <AddTask 
+                    onAdd={addTask} 
+                    translations={translations} 
+                    language={language} 
+                  />
                 )}
                 {tasks.length > 0 ? (
                   <Tasks
@@ -170,8 +186,19 @@ const App = () => {
               </>
             )}
           />
-          <Route path="/about" component={About} />
-          <Footer />
+          <Route 
+            path="/about" 
+            component={() => (
+              <About 
+                translations={translations}
+                language={language}
+              />
+            )} 
+          />
+          <Footer 
+            translations={translations}
+            language={language}
+          />
         </div>
       </div>
     </Router>

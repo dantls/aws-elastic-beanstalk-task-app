@@ -9,7 +9,7 @@ const AddTask = ({ onAdd, translations, language }) => {
     e.preventDefault();
 
     if (!text) {
-      alert("Please add a task");
+      alert(translations[language].pleaseAddTask);
       return;
     }
 
@@ -26,7 +26,7 @@ const AddTask = ({ onAdd, translations, language }) => {
         <label>{translations[language].task}</label>
         <input
           type="text"
-          placeholder="Add Task"
+          placeholder={translations[language].addTaskPlaceholder}
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
@@ -35,7 +35,7 @@ const AddTask = ({ onAdd, translations, language }) => {
         <label>{translations[language].addDay}</label>
         <input
           type="text"
-          placeholder="Add Day & Time"
+          placeholder={translations[language].addDayPlaceholder}
           value={day}
           onChange={(e) => setDay(e.target.value)}
         />
