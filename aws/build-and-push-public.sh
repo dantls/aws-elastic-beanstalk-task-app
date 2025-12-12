@@ -55,12 +55,12 @@ echo -e "${YELLOW}🔐 Logging into ECR...${NC}"
 aws ecr get-login-password --region $AWS_REGION --profile $AWS_PROFILE | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 
 # 6. Build da imagem React (se necessário)
-if [ -d "app/frontend/src" ]; then
+if [ -d "../app/frontend/src" ]; then
     echo -e "${YELLOW}⚛️ Building React app...${NC}"
-    cd app/frontend
+    cd ../app/frontend
     npm install
     NODE_OPTIONS="--openssl-legacy-provider" GENERATE_SOURCEMAP=false npm run build
-    cd ../..
+    cd ../../aws
     
     # Limpar arquivos de desenvolvimento do frontend
     echo -e "${YELLOW}🧹 Cleaning frontend dev files...${NC}"
@@ -75,7 +75,7 @@ LATEST_URI="$ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:latest"
 echo -e "${YELLOW}🏗️ Building Docker image with tag: $TAG${NC}"
 
 # 8. Build da imagem Docker
-docker build -t $ECR_REPO:$TAG .
+docker build -t $ECR_REPO:$TAG ../app/
 docker tag $ECR_REPO:$TAG $IMAGE_URI
 docker tag $ECR_REPO:$TAG $LATEST_URI
 
@@ -86,8 +86,8 @@ docker push $LATEST_URI
 
 # 10. Limpeza pós-push
 echo -e "${YELLOW}🧹 Cleaning up after ECR push...${NC}"
-rm -rf app/backend/node_modules
-rm -rf app/frontend/build
+rm -rf ../app/backend/node_modules
+rm -rf ../app/frontend/build
 echo -e "${GREEN}✅ Build artifacts cleaned!${NC}"
 
 # 11. Criar Dockerrun.aws.json para Beanstalk
