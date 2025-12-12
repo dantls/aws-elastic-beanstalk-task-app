@@ -1,5 +1,5 @@
 {
-  "name": "bia",
+  "name": "tasks-application",
   "version": "1.0.0",
   "description": "### Período do evento: 04 a 07 de Outubro/2021 (Online e ao vivo às 20h)",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/henrylle/bia.git"
+    "url": "git+https://github.com/user/tasks-application.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/henrylle/bia/issues"
+    "url": "https://github.com/user/tasks-application/issues"
   },
-  "homepage": "https://github.com/henrylle/bia#readme",
+  "homepage": "https://github.com/user/tasks-application#readme",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
