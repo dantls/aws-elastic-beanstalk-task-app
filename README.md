@@ -1,50 +1,50 @@
-## Tasks Application - Projeto de gerenciamento de tarefas moderno
+# Tasks Application - Modern Task Management Project
 
-### Aplicação web completa com React e Node.js
+### Full-stack web application with React and Node.js
 
-## 🏗️ Arquitetura AWS
+## 🏗️ AWS Architecture
 
 ![AWS Architecture](aws-real-architecture.png)
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 tasks-application/
 ├── app/
 │   ├── frontend/          # React App
-│   │   ├── src/           # Código fonte React
-│   │   ├── public/        # Arquivos públicos
-│   │   ├── build/         # Build de produção
-│   │   └── package.json   # Dependências frontend
+│   │   ├── src/           # React source code
+│   │   ├── public/        # Public files
+│   │   ├── build/         # Production build
+│   │   └── package.json   # Frontend dependencies
 │   ├── backend/           # Node.js API
-│   │   ├── api/           # Controllers e rotas
-│   │   ├── config/        # Configurações
+│   │   ├── api/           # Controllers and routes
+│   │   ├── config/        # Configurations
 │   │   ├── database/      # Migrations
-│   │   ├── lib/           # Utilitários
-│   │   ├── index.js       # Servidor principal
-│   │   └── package.json   # Dependências backend
-│   └── Dockerfile         # Container da aplicação
-├── aws/                   # Infraestrutura AWS
-│   ├── .ebextensions/     # Configurações Elastic Beanstalk
-│   ├── build-and-push-public.sh  # Script de build e deploy
-│   ├── deploy.sh          # Script de deploy
-│   └── .env               # Variáveis de ambiente
+│   │   ├── lib/           # Utilities
+│   │   ├── index.js       # Main server
+│   │   └── package.json   # Backend dependencies
+│   └── Dockerfile         # Application container
+├── aws/                   # AWS Infrastructure
+│   ├── .ebextensions/     # Elastic Beanstalk configurations
+│   ├── build-and-push-public.sh  # Build and deploy script
+│   ├── deploy.sh          # Deploy script
+│   └── .env               # Environment variables
 └── README.md
 ```
 
-## 🚀 Tecnologias
+## 🚀 Technologies
 
 **Frontend:**
 - React 17
 - Dark/Light Theme
-- Internacionalização (PT/EN)
-- CSS moderno com variáveis
+- Internationalization (PT/EN)
+- Modern CSS with variables
 
 **Backend:**
 - Node.js + Express
 - PostgreSQL
 - Sequelize ORM
-- API RESTful
+- RESTful API
 
 **AWS:**
 - Elastic Beanstalk
@@ -52,7 +52,7 @@ tasks-application/
 - ECR (Container Registry)
 - Docker
 
-## 🛠️ Desenvolvimento Local
+## 🛠️ Local Development
 
 ### Frontend
 ```bash
@@ -68,9 +68,9 @@ npm install
 npm start  # http://localhost:3000
 ```
 
-## 📦 Deploy AWS
+## 📦 AWS Deployment
 
-### Build e Push
+### Build and Push
 ```bash
 cd aws
 source .env
@@ -84,23 +84,23 @@ source .env
 
 ## 🎯 Features
 
-- ✅ Interface moderna com dark theme
-- ✅ Gerenciamento de tarefas (CRUD)
-- ✅ Marcação de prioridade
-- ✅ Internacionalização PT/EN
-- ✅ Design responsivo
-- ✅ API RESTful
-- ✅ Deploy automatizado AWS
+- ✅ Modern interface with dark theme
+- ✅ Task management (CRUD operations)
+- ✅ Priority marking
+- ✅ Internationalization PT/EN
+- ✅ Responsive design
+- ✅ RESTful API
+- ✅ Automated AWS deployment
 
 ## 📋 API Endpoints
 
-- `GET /api/tarefas` - Listar tarefas
-- `POST /api/tarefas` - Criar tarefa
-- `GET /api/tarefas/:uuid` - Buscar tarefa
-- `PUT /api/tarefas/update_priority/:uuid` - Atualizar prioridade
-- `DELETE /api/tarefas/:uuid` - Deletar tarefa
+- `GET /api/tarefas` - List tasks
+- `POST /api/tarefas` - Create task
+- `GET /api/tarefas/:uuid` - Get task
+- `PUT /api/tarefas/update_priority/:uuid` - Update priority
+- `DELETE /api/tarefas/:uuid` - Delete task
 
-## 🌐 URL da Aplicação
+## 🌐 Application URL
 
-**Produção:** http://task-dev.us-east-1.elasticbeanstalk.com
+**Production:** http://task-dev.us-east-1.elasticbeanstalk.com
 
