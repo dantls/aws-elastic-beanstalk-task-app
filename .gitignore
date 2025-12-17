@@ -5,12 +5,14 @@ app/backend/node_modules/
 
 # Environment variables (CRÍTICO - dados sensíveis)
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
 aws/.env
+aws/.env.*
 aws-infrastructure/.env
+
+# AWS sensitive configs (CRÍTICO)
+aws/.ebextensions/03_environment.config
+**/03_environment.config
 
 # Build artifacts
 build/
@@ -21,9 +23,6 @@ dist/
 *.zip
 aws/*.zip
 aws-infrastructure/*.zip
-
-# AWS sensitive configs
-aws/.ebextensions/03_environment.config
 
 # Logs
 npm-debug.log*
