@@ -2,6 +2,10 @@
 
 ### Full-stack web application with React and Node.js
 
+## 🖥️ Application Preview
+
+![Application Screenshot](app-screenshot.png)
+
 ## 🏗️ AWS Architecture
 
 ![AWS Architecture](aws-real-architecture.png)
@@ -103,4 +107,3 @@ source .env
 ## 🌐 Application URL
 
 **Production:** http://task-dev.us-east-1.elasticbeanstalk.com
-
