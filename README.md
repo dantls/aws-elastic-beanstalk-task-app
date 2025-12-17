@@ -2,6 +2,10 @@
 
 ### Aplicação web completa com React e Node.js
 
+## 🏗️ Arquitetura AWS
+
+![AWS Architecture](aws-real-architecture.png)
+
 ## 📁 Estrutura do Projeto
 
 ```
