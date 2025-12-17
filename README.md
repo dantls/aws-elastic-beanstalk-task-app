@@ -100,5 +100,3 @@ source .env
 
 **Produção:** http://task-dev.us-east-1.elasticbeanstalk.com
 
-[>> Página de Inscrição do evento](https://pages.oregonead.com.br/bootcamp-imersao-aws)
-
