@@ -4,7 +4,7 @@
 
 ## 🖥️ Application Preview
 
-![Application Screenshot](app-screenshot.png)
+![Application Screenshot](Screenshot-Task%20Application.png)
 
 ## 🏗️ AWS Architecture
 
