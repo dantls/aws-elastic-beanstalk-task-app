@@ -22,6 +22,9 @@ dist/
 aws/*.zip
 aws-infrastructure/*.zip
 
+# AWS sensitive configs
+aws/.ebextensions/03_environment.config
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
